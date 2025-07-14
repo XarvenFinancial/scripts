@@ -11,8 +11,13 @@ SCAFFOLD_REPO_DIR="scaffolds"
 # Function to cleanup temporary files
 cleanup() {
     echo "Cleaning up temporary files..."
-    rm -rf $SCAFFOLD_REPO_DIR
-    rm scaffold.sh
+    if [ -d $SCAFFOLD_REPO_DIR ]; then
+        rm -rf $SCAFFOLD_REPO_DIR
+    fi
+    
+    if [ -f scaffold.sh ]; then
+        rm scaffold.sh
+    fi
 }
 
 # Set trap to cleanup on exit (success or failure)
