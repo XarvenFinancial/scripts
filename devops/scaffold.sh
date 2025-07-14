@@ -6,14 +6,14 @@
 
 set -e  # Exit on any error
 
+SCAFFOLD_REPO_DIR="scaffolds"
 
 # Function to cleanup temporary files
 cleanup() {
     echo "Cleaning up temporary files..."
-    rm -rf temp_repo
+    rm -rf $SCAFFOLD_REPO_DIR
     rm scaffold.sh
 }
-
 
 # Check if exactly 3 arguments are provided
 if [ $# -ne 3 ]; then
@@ -27,7 +27,5 @@ if [ $# -ne 3 ]; then
     exit 1
 fi
 
-git clone --depth=1 --filter=blob:none --sparse https://github.com/XarvenFinancial/scaffolds.git temp_repo
-cd temp_repo
-git sparse-checkout set import.sh --skip-checks
-./temp_repo/import.sh $1 $2 $3
+git clone --depth=1 https://github.com/XarvenFinancial/scaffolds.git $SCAFFOLD_REPO_DIR
+./{$SCAFFOLD_REPO_DIR}/import.sh $1 $2 $3
