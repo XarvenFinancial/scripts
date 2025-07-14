@@ -15,6 +15,9 @@ cleanup() {
     rm scaffold.sh
 }
 
+# Set trap to cleanup on exit (success or failure)
+trap cleanup EXIT
+
 # Check if exactly 3 arguments are provided
 if [ $# -ne 3 ]; then
     echo "Usage: $0 <group> <target> <name>"
@@ -28,4 +31,4 @@ if [ $# -ne 3 ]; then
 fi
 
 git clone --depth=1 https://github.com/XarvenFinancial/scaffolds.git $SCAFFOLD_REPO_DIR
-./{$SCAFFOLD_REPO_DIR}/import.sh $1 $2 $3
+./$SCAFFOLD_REPO_DIR/import.sh $1 $2 $3
